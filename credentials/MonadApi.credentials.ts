@@ -18,6 +18,13 @@ export class MonadApi implements ICredentialType {
   documentationUrl = 'https://docs.monad.xyz';
   properties: INodeProperties[] = [
     {
+      displayName: 'API Base URL',
+      name: 'baseUrl',
+      type: 'string',
+      default: 'https://rpc.monad.xyz',
+      description: 'The base URL for the Monad RPC endpoint',
+    },
+    {
       displayName: 'Explorer API Endpoint',
       name: 'explorerApiEndpoint',
       type: 'string',
@@ -34,6 +41,51 @@ export class MonadApi implements ICredentialType {
       },
       default: '',
       description: 'API key for authenticated requests',
+    },
+    {
+      displayName: 'Authentication Method',
+      name: 'authMethod',
+      type: 'options',
+      options: [
+        {
+          name: 'None (Public RPC)',
+          value: 'none',
+        },
+        {
+          name: 'API Key in Header',
+          value: 'header',
+        },
+        {
+          name: 'API Key in Query Parameter',
+          value: 'query',
+        },
+      ],
+      default: 'none',
+      description: 'How to authenticate with the Monad RPC endpoint',
+    },
+    {
+      displayName: 'Header Name',
+      name: 'headerName',
+      type: 'string',
+      default: 'X-API-Key',
+      description: 'Header name for API key authentication',
+      displayOptions: {
+        show: {
+          authMethod: ['header'],
+        },
+      },
+    },
+    {
+      displayName: 'Query Parameter Name',
+      name: 'queryParam',
+      type: 'string',
+      default: 'apikey',
+      description: 'Query parameter name for API key authentication',
+      displayOptions: {
+        show: {
+          authMethod: ['query'],
+        },
+      },
     },
     {
       displayName: 'Subgraph URL',
